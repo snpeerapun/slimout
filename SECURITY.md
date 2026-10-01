@@ -1,6 +1,6 @@
 # Security & privacy model
 
-slimout sits between an AI coding agent and your shell, so it is built to be **boring and auditable**: ~360 lines of plain
+slimout sits between an AI coding agent and your shell, so it is built to be **boring and auditable**: ~480 lines of plain
 Node.js, zero dependencies, nothing to trust but this repository. These are guarantees, and each one is enforced by a test
 (`test/policy.test.js`, `test/hook.test.js`, `test/run.test.js`) that fails CI if broken.
 
