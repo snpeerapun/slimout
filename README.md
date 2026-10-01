@@ -8,6 +8,15 @@ $ ls -1 .            (467 lines)         →  163 lines + "[slimout: 304 lines o
 ```
 Benchmark ([bench/](bench/README.md)): ~65 % fewer tokens while keeping ~85 % of the "must-keep" lines across 28 commands; measured in a real Claude Code session: **73 % fewer bytes** on a large `ls`, the model saw exactly how much was omitted and could ask for it back.
 
+## Benchmark at a glance
+
+![Top 1–5 command-output reducers](bench/results/ranking.png)
+
+![slimout versions vs RTK by workload group](bench/results/before_after.png)
+
+Same 28 commands for every tool (generated fixtures + real repos/trees, three groups defined at different times); methodology, flaws found and fixed, and caveats in [`bench/README.md`](bench/README.md).
+Safety is the most robust result: 7/7 experiments passed vs RTK 3/7.
+
 ## How it works
 A Claude Code `PreToolUse` hook rewrites an allowed, simple Bash command (e.g. `git diff`, `ls`, `npm test`, `pytest`) into
 `slimout run -- <same command>`. `run` executes it **without a shell**, keeps the exit code, then:
