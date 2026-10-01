@@ -22,3 +22,10 @@ test('refuses to overwrite a settings file it cannot parse', () => {
   fs.writeFileSync(f, '{ not json'); assert.throws(() => inst.install(), /will not overwrite/); assert.strictEqual(fs.readFileSync(f, 'utf8'), '{ not json');
 });
 test('dry run changes nothing', () => { fs.writeFileSync(f, '{}'); inst.install({ dryRun: true }); assert.strictEqual(fs.readFileSync(f, 'utf8'), '{}'); });
+
+test('install adds the /slimout slash command (user scope) and uninstall removes only our file', () => {
+  fs.writeFileSync(f, '{}'); inst.install(); const cf = inst.cmdFile(); assert.ok(fs.readFileSync(cf, 'utf8').includes('slimout-command') && fs.readFileSync(cf, 'utf8').includes(' gain $ARGUMENTS'));
+  inst.uninstall(); assert.ok(!fs.existsSync(cf));
+  fs.mkdirSync(path.dirname(cf), { recursive: true }); fs.writeFileSync(cf, 'my own command'); fs.writeFileSync(f, '{}'); inst.install(); assert.strictEqual(fs.readFileSync(cf, 'utf8'), 'my own command');   // never overwrites a user file
+  inst.uninstall(); assert.strictEqual(fs.readFileSync(cf, 'utf8'), 'my own command');
+});

@@ -46,7 +46,7 @@ No matching allow rule → the command is left alone and you see the normal prom
 | `slimout install [--project] [--dry-run]` / `uninstall` / `status` | manage the hook |
 | `slimout run -- <cmd…>` | run + slim (what the hook calls) |
 | `slimout show <id>` | full redacted output saved when lines were omitted (1 h) |
-| `slimout gain` | local counters: bytes/tokens saved (no commands or arguments are stored) |
+| `slimout gain [day\|week\|month [N]]` | local counters: all-time + today / 7 days / 30 days, or a table per day / week / month (no commands or arguments are stored). In Claude Code: `/slimout`, `/slimout week` … (added by `install`) |
 
 Environment: `SLIMOUT_COMPACT=0` (generic elision only) · `SLIMOUT_LIST_LINES` (40) · `SLIMOUT_MAX_LINES` (120) · `SLIMOUT_MAX_BYTES` (8000) · `SLIMOUT_NO_TEE=1` · `SLIMOUT_REDACT=0` · `SLIMOUT_HOME`.
 

@@ -1,6 +1,6 @@
 {
   "name": "slimout",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Safe-by-design command-output slimmer for AI coding agents (Claude Code hook). No network, no telemetry, no dependencies.",
   "license": "MIT",
   "bin": {

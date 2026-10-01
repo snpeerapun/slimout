@@ -9,7 +9,7 @@ const HELP = `slimout — trim command output for AI coding agents (no network, 
   slimout status                            where the hook is installed
   slimout run -- <command> [args…]          run a command, slim + redact its output, keep its exit code
   slimout show <id>                         print the full (redacted) output saved when something was omitted (kept 1 hour)
-  slimout gain                              local counters: how much output was trimmed
+  slimout gain [day|week|month [N]]         local counters: all-time + today / 7 days / 30 days, or a table per day / week / month
   slimout hook                              (internal) the hook entry point
 
 Env: SLIMOUT_MAX_LINES, SLIMOUT_MAX_BYTES, SLIMOUT_NO_TEE=1, SLIMOUT_REDACT=0, SLIMOUT_HOME (state dir)`;
@@ -22,8 +22,14 @@ async function main(argv) {
     case 'install': case 'uninstall': { const r = inst[cmd]({ project: flag('--project'), dryRun: flag('--dry-run') }); console.log(`${r.file}: ${r.message}`); return; }
     case 'status': for (const s of inst.status()) console.log(`${s.scope.padEnd(8)} ${s.installed ? 'installed' : 'not installed'}  ${s.file}`); return;
     case 'show': try { process.stdout.write(store.readTee(rest[0])); } catch (e) { console.error('slimout: not found (expired after 1 hour, or bad id)'); process.exit(1); } return;
-    case 'gain': { const s = store.readStats(); const saved = s.bytesIn - s.bytesOut; console.log(`runs ${s.runs} · in ${s.bytesIn} B · out ${s.bytesOut} B · saved ≈ ${saved} B (~${Math.round(saved / 4)} tokens, ${s.bytesIn ? Math.round(100 * saved / s.bytesIn) : 0}%)`);
-      for (const [k, v] of Object.entries(s.byCommand).sort((a, b) => (b[1].bytesIn - b[1].bytesOut) - (a[1].bytesIn - a[1].bytesOut)).slice(0, 8)) console.log(`  ${k.padEnd(10)} runs ${String(v.runs).padEnd(5)} saved ≈ ${v.bytesIn - v.bytesOut} B`); return; }
+    case 'gain': {
+      const s = store.readStats(); const rep = require('./../lib/report'); const period = ['day', 'week', 'month'].find(p => rest[0] === p || rest[0] === p + 's');
+      if (period) { console.log(rep.render(rep.table(s.daily, period, Number(rest[1]) || { day: 14, week: 12, month: 12 }[period]), period)); return; }
+      const saved = s.bytesIn - s.bytesOut; const w = rep.windows(s.daily);
+      console.log(`all time   runs ${s.runs} · in ${s.bytesIn} B · out ${s.bytesOut} B · saved ≈ ${saved} B (~${Math.round(saved / 4)} tokens, ${s.bytesIn ? Math.round(100 * saved / s.bytesIn) : 0}%)`);
+      for (const [k, lab] of [['today', 'today    '], ['last7', 'last 7 d '], ['last30', 'last 30 d']]) console.log(`${lab}  runs ${String(w[k].runs).padEnd(5)} saved ${String(w[k].percent).padStart(3)}%  ≈ ${w[k].tokensSaved} tokens`);
+      for (const [k, v] of Object.entries(s.byCommand).sort((a, b) => (b[1].bytesIn - b[1].bytesOut) - (a[1].bytesIn - a[1].bytesOut)).slice(0, 8)) console.log(`  ${k.padEnd(10)} runs ${String(v.runs).padEnd(5)} saved ≈ ${v.bytesIn - v.bytesOut} B`);
+      console.log('\n(slimout gain day|week|month [N] for a table per period)'); return; }
     default: console.log(HELP);
   }
 }
