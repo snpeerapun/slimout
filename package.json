@@ -1,0 +1,30 @@
+{
+  "name": "slimout",
+  "version": "0.1.0",
+  "description": "Safe-by-design command-output slimmer for AI coding agents (Claude Code hook). No network, no telemetry, no dependencies.",
+  "license": "MIT",
+  "bin": {
+    "slimout": "bin/slimout.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "claude-code",
+    "tokens",
+    "hooks",
+    "cli",
+    "llm"
+  ],
+  "dependencies": {}
+}
