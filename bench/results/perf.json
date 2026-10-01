@@ -1,0 +1,556 @@
+{
+ "workloads": [
+  {
+   "wl": "fixture: npm test (900 pass, 2 fail)",
+   "raw_tokens": 11832,
+   "needles": 10
+  },
+  {
+   "wl": "fixture: build (700 lines, 3 errors)",
+   "raw_tokens": 9974,
+   "needles": 17
+  },
+  {
+   "wl": "fixture: npm install noise + ERESOLVE",
+   "raw_tokens": 27883,
+   "needles": 5
+  },
+  {
+   "wl": "fixture: ls -la (400 files)",
+   "raw_tokens": 12456,
+   "needles": 15
+  },
+  {
+   "wl": "fixture: find . -name \"*.js\"",
+   "raw_tokens": 2818,
+   "needles": 15
+  },
+  {
+   "wl": "fixture: grep -rn \"function\" (3200 hits)",
+   "raw_tokens": 64000,
+   "needles": 2
+  },
+  {
+   "wl": "real repo: git log -n 300",
+   "raw_tokens": 119082,
+   "needles": 23
+  },
+  {
+   "wl": "real repo: git diff HEAD~15",
+   "raw_tokens": 133655,
+   "needles": 36
+  },
+  {
+   "wl": "real repo: git status",
+   "raw_tokens": 835,
+   "needles": 15
+  },
+  {
+   "wl": "real repo: git show --stat HEAD~3",
+   "raw_tokens": 196,
+   "needles": 4
+  },
+  {
+   "wl": "real tree: ls -laR (2 levels)",
+   "raw_tokens": 2352,
+   "needles": 17
+  },
+  {
+   "wl": "real tree: find . -name \"*.json\"",
+   "raw_tokens": 867,
+   "needles": 7
+  }
+ ],
+ "results": {
+  "slimout": [
+   {
+    "wl": "fixture: npm test (900 pass, 2 fail)",
+    "raw_tokens": 11832,
+    "tool_tokens": 157,
+    "savings": 0.9867308992562542,
+    "recall": 1.0,
+    "overhead_ms": 47.55433299578726
+   },
+   {
+    "wl": "fixture: build (700 lines, 3 errors)",
+    "raw_tokens": 9974,
+    "tool_tokens": 740,
+    "savings": 0.9258070984559855,
+    "recall": 1.0,
+    "overhead_ms": 59.62437500420492
+   },
+   {
+    "wl": "fixture: npm install noise + ERESOLVE",
+    "raw_tokens": 27883,
+    "tool_tokens": 1810,
+    "savings": 0.9350858946311372,
+    "recall": 1.0,
+    "overhead_ms": 57.30804101040121
+   },
+   {
+    "wl": "fixture: ls -la (400 files)",
+    "raw_tokens": 12456,
+    "tool_tokens": 2973,
+    "savings": 0.7613198458574181,
+    "recall": 1.0,
+    "overhead_ms": 52.76187499111984
+   },
+   {
+    "wl": "fixture: find . -name \"*.js\"",
+    "raw_tokens": 2818,
+    "tool_tokens": 702,
+    "savings": 0.7508871540099361,
+    "recall": 1.0,
+    "overhead_ms": 53.590499999700114
+   },
+   {
+    "wl": "fixture: grep -rn \"function\" (3200 hits)",
+    "raw_tokens": 64000,
+    "tool_tokens": 1955,
+    "savings": 0.969453125,
+    "recall": 1.0,
+    "overhead_ms": 55.95079199702013
+   },
+   {
+    "wl": "real repo: git log -n 300",
+    "raw_tokens": 119082,
+    "tool_tokens": 10534,
+    "savings": 0.9115399472632304,
+    "recall": 0.4782608695652174,
+    "overhead_ms": 60.49745799100492
+   },
+   {
+    "wl": "real repo: git diff HEAD~15",
+    "raw_tokens": 133655,
+    "tool_tokens": 6454,
+    "savings": 0.9517114960158617,
+    "recall": 0.027777777777777776,
+    "overhead_ms": 53.91845799749717
+   },
+   {
+    "wl": "real repo: git status",
+    "raw_tokens": 835,
+    "tool_tokens": 835,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 52.380082008312456
+   },
+   {
+    "wl": "real repo: git show --stat HEAD~3",
+    "raw_tokens": 196,
+    "tool_tokens": 196,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 62.20162601675838
+   },
+   {
+    "wl": "real tree: ls -laR (2 levels)",
+    "raw_tokens": 2352,
+    "tool_tokens": 2352,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 52.34808301611338
+   },
+   {
+    "wl": "real tree: find . -name \"*.json\"",
+    "raw_tokens": 867,
+    "tool_tokens": 867,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 52.47950099874288
+   }
+  ],
+  "rtk": [
+   {
+    "wl": "fixture: npm test (900 pass, 2 fail)",
+    "raw_tokens": 11832,
+    "tool_tokens": 59,
+    "savings": 0.9950135226504395,
+    "recall": 0.6,
+    "overhead_ms": 6.3813329907134175
+   },
+   {
+    "wl": "fixture: build (700 lines, 3 errors)",
+    "raw_tokens": 9974,
+    "tool_tokens": 163,
+    "savings": 0.9836575095247644,
+    "recall": 0.8823529411764706,
+    "overhead_ms": 18.95158301340416
+   },
+   {
+    "wl": "fixture: npm install noise + ERESOLVE",
+    "raw_tokens": 27883,
+    "tool_tokens": 83,
+    "savings": 0.9970232758311516,
+    "recall": 1.0,
+    "overhead_ms": 7.463708010618575
+   },
+   {
+    "wl": "fixture: ls -la (400 files)",
+    "raw_tokens": 12456,
+    "tool_tokens": 573,
+    "savings": 0.9539980732177264,
+    "recall": 1.0,
+    "overhead_ms": 7.931749991257675
+   },
+   {
+    "wl": "fixture: find . -name \"*.js\"",
+    "raw_tokens": 2818,
+    "tool_tokens": 229,
+    "savings": 0.9187366926898509,
+    "recall": 0.3333333333333333,
+    "overhead_ms": 5.580582001130097
+   },
+   {
+    "wl": "fixture: grep -rn \"function\" (3200 hits)",
+    "raw_tokens": 64000,
+    "tool_tokens": 4028,
+    "savings": 0.9370625,
+    "recall": 0.0,
+    "overhead_ms": 12.351126002613455
+   },
+   {
+    "wl": "real repo: git log -n 300",
+    "raw_tokens": 119082,
+    "tool_tokens": 51109,
+    "savings": 0.5708083505483617,
+    "recall": 0.782608695652174,
+    "overhead_ms": 9.939542011125013
+   },
+   {
+    "wl": "real repo: git diff HEAD~15",
+    "raw_tokens": 133655,
+    "tool_tokens": 16020,
+    "savings": 0.8801391642662078,
+    "recall": 0.8333333333333334,
+    "overhead_ms": 18.30424899526406
+   },
+   {
+    "wl": "real repo: git status",
+    "raw_tokens": 835,
+    "tool_tokens": 646,
+    "savings": 0.22634730538922154,
+    "recall": 1.0,
+    "overhead_ms": 25.33683300134726
+   },
+   {
+    "wl": "real repo: git show --stat HEAD~3",
+    "raw_tokens": 196,
+    "tool_tokens": 196,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 7.595626011607237
+   },
+   {
+    "wl": "real tree: ls -laR (2 levels)",
+    "raw_tokens": 2352,
+    "tool_tokens": 285,
+    "savings": 0.8788265306122449,
+    "recall": 0.8235294117647058,
+    "overhead_ms": 7.8796250018058345
+   },
+   {
+    "wl": "real tree: find . -name \"*.json\"",
+    "raw_tokens": 867,
+    "tool_tokens": 339,
+    "savings": 0.6089965397923875,
+    "recall": 0.2857142857142857,
+    "overhead_ms": 4.190167994238436
+   }
+  ],
+  "head+tail": [
+   {
+    "wl": "fixture: npm test (900 pass, 2 fail)",
+    "raw_tokens": 11832,
+    "tool_tokens": 1504,
+    "savings": 0.8728870858688302,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: build (700 lines, 3 errors)",
+    "raw_tokens": 9974,
+    "tool_tokens": 1679,
+    "savings": 0.831662322037297,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: npm install noise + ERESOLVE",
+    "raw_tokens": 27883,
+    "tool_tokens": 2723,
+    "savings": 0.9023419287738048,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: ls -la (400 files)",
+    "raw_tokens": 12456,
+    "tool_tokens": 3690,
+    "savings": 0.703757225433526,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: find . -name \"*.js\"",
+    "raw_tokens": 2818,
+    "tool_tokens": 844,
+    "savings": 0.7004968062455642,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: grep -rn \"function\" (3200 hits)",
+    "raw_tokens": 64000,
+    "tool_tokens": 2408,
+    "savings": 0.962375,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git log -n 300",
+    "raw_tokens": 119082,
+    "tool_tokens": 2804,
+    "savings": 0.9764532003157488,
+    "recall": 0.4782608695652174,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git diff HEAD~15",
+    "raw_tokens": 133655,
+    "tool_tokens": 3200,
+    "savings": 0.976057760652426,
+    "recall": 0.027777777777777776,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git status",
+    "raw_tokens": 835,
+    "tool_tokens": 835,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git show --stat HEAD~3",
+    "raw_tokens": 196,
+    "tool_tokens": 196,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: ls -laR (2 levels)",
+    "raw_tokens": 2352,
+    "tool_tokens": 2352,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: find . -name \"*.json\"",
+    "raw_tokens": 867,
+    "tool_tokens": 867,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   }
+  ],
+  "tail-100": [
+   {
+    "wl": "fixture: npm test (900 pass, 2 fail)",
+    "raw_tokens": 11832,
+    "tool_tokens": 1272,
+    "savings": 0.8924949290060852,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: build (700 lines, 3 errors)",
+    "raw_tokens": 9974,
+    "tool_tokens": 1431,
+    "savings": 0.856526970122318,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: npm install noise + ERESOLVE",
+    "raw_tokens": 27883,
+    "tool_tokens": 2370,
+    "savings": 0.9150019725280637,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: ls -la (400 files)",
+    "raw_tokens": 12456,
+    "tool_tokens": 3100,
+    "savings": 0.7511239563262685,
+    "recall": 0.06666666666666667,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: find . -name \"*.js\"",
+    "raw_tokens": 2818,
+    "tool_tokens": 700,
+    "savings": 0.751596877217885,
+    "recall": 0.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: grep -rn \"function\" (3200 hits)",
+    "raw_tokens": 64000,
+    "tool_tokens": 2000,
+    "savings": 0.96875,
+    "recall": 0.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git log -n 300",
+    "raw_tokens": 119082,
+    "tool_tokens": 2162,
+    "savings": 0.9818444433247678,
+    "recall": 0.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git diff HEAD~15",
+    "raw_tokens": 133655,
+    "tool_tokens": 2616,
+    "savings": 0.9804272193333583,
+    "recall": 0.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git status",
+    "raw_tokens": 835,
+    "tool_tokens": 835,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git show --stat HEAD~3",
+    "raw_tokens": 196,
+    "tool_tokens": 196,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: ls -laR (2 levels)",
+    "raw_tokens": 2352,
+    "tool_tokens": 2352,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: find . -name \"*.json\"",
+    "raw_tokens": 867,
+    "tool_tokens": 755,
+    "savings": 0.12918108419838525,
+    "recall": 0.42857142857142855,
+    "overhead_ms": 0.0
+   }
+  ],
+  "error-grep": [
+   {
+    "wl": "fixture: npm test (900 pass, 2 fail)",
+    "raw_tokens": 11832,
+    "tool_tokens": 106,
+    "savings": 0.9910412440838404,
+    "recall": 0.8,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: build (700 lines, 3 errors)",
+    "raw_tokens": 9974,
+    "tool_tokens": 171,
+    "savings": 0.9828554241026669,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: npm install noise + ERESOLVE",
+    "raw_tokens": 27883,
+    "tool_tokens": 66,
+    "savings": 0.9976329663235664,
+    "recall": 0.8,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: ls -la (400 files)",
+    "raw_tokens": 12456,
+    "tool_tokens": 583,
+    "savings": 0.9531952472703917,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: find . -name \"*.js\"",
+    "raw_tokens": 2818,
+    "tool_tokens": 137,
+    "savings": 0.9513839602555003,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "fixture: grep -rn \"function\" (3200 hits)",
+    "raw_tokens": 64000,
+    "tool_tokens": 400,
+    "savings": 0.99375,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git log -n 300",
+    "raw_tokens": 119082,
+    "tool_tokens": 9502,
+    "savings": 0.9202062444366067,
+    "recall": 0.5217391304347826,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git diff HEAD~15",
+    "raw_tokens": 133655,
+    "tool_tokens": 9528,
+    "savings": 0.9287119823425984,
+    "recall": 0.3055555555555556,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git status",
+    "raw_tokens": 835,
+    "tool_tokens": 280,
+    "savings": 0.6646706586826348,
+    "recall": 0.8666666666666667,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real repo: git show --stat HEAD~3",
+    "raw_tokens": 196,
+    "tool_tokens": 196,
+    "savings": 0.0,
+    "recall": 1.0,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: ls -laR (2 levels)",
+    "raw_tokens": 2352,
+    "tool_tokens": 169,
+    "savings": 0.9281462585034014,
+    "recall": 0.11764705882352941,
+    "overhead_ms": 0.0
+   },
+   {
+    "wl": "real tree: find . -name \"*.json\"",
+    "raw_tokens": 867,
+    "tool_tokens": 42,
+    "savings": 0.9515570934256056,
+    "recall": 0.7142857142857143,
+    "overhead_ms": 0.0
+   }
+  ]
+ }
+}

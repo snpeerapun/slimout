@@ -1,0 +1,107 @@
+{
+ "slimout": {
+  "scores": {
+   "secret-in-env": 1.0,
+   "secret-in-diff": 1.0,
+   "secret-at-rest": 1.0,
+   "files-at-rest": 1.0,
+   "default-telemetry": 1.0,
+   "offline": 1.0,
+   "repo-config": 1.0
+  },
+  "notes": {
+   "secret-in-env": "0 of 4 credentials visible",
+   "secret-in-diff": "0 of 4 credentials visible",
+   "secret-at-rest": "5 files created; raw credentials inside: 0",
+   "files-at-rest": "all private (0600/0700)",
+   "default-telemetry": "no telemetry code",
+   "offline": "no network code (enforced by a CI test); with network denied: exit 0",
+   "repo-config": "no project-local configuration"
+  },
+  "safety": 1.0
+ },
+ "rtk": {
+  "scores": {
+   "secret-in-env": 0.0,
+   "secret-in-diff": 0.0,
+   "secret-at-rest": 1.0,
+   "files-at-rest": 0.0,
+   "default-telemetry": 1.0,
+   "offline": 0.5,
+   "repo-config": 0.5
+  },
+  "notes": {
+   "secret-in-env": "2 of 4 credentials visible",
+   "secret-in-diff": "2 of 4 credentials visible",
+   "secret-at-rest": "4 files created; raw credentials inside: 0",
+   "files-at-rest": "2 of 4 readable by other users",
+   "default-telemetry": "default state: Telemetry status:   consent:       never asked   enabled:       no   device hash:   (telem",
+   "offline": "works offline, but ships a telemetry endpoint + TLS client; with network denied: exit 0",
+   "repo-config": "project-local filters exist; blocked until `rtk trust` (fix for CVE-2026-45792) \u2014 not independently exploited here"
+  },
+  "safety": 0.42857142857142855
+ },
+ "head+tail": {
+  "scores": {
+   "secret-in-env": 0.0,
+   "secret-in-diff": 0.0,
+   "secret-at-rest": 1.0,
+   "files-at-rest": 1.0,
+   "default-telemetry": 1.0,
+   "offline": 1.0,
+   "repo-config": 1.0
+  },
+  "notes": {
+   "secret-in-env": "4 of 4 credentials visible",
+   "secret-in-diff": "2 of 4 credentials visible",
+   "secret-at-rest": "stores nothing",
+   "files-at-rest": "stores nothing",
+   "default-telemetry": "no telemetry code",
+   "offline": "no network code",
+   "repo-config": "no configuration at all"
+  },
+  "safety": 0.7142857142857143
+ },
+ "tail-100": {
+  "scores": {
+   "secret-in-env": 0.0,
+   "secret-in-diff": 0.0,
+   "secret-at-rest": 1.0,
+   "files-at-rest": 1.0,
+   "default-telemetry": 1.0,
+   "offline": 1.0,
+   "repo-config": 1.0
+  },
+  "notes": {
+   "secret-in-env": "4 of 4 credentials visible",
+   "secret-in-diff": "2 of 4 credentials visible",
+   "secret-at-rest": "stores nothing",
+   "files-at-rest": "stores nothing",
+   "default-telemetry": "no telemetry code",
+   "offline": "no network code",
+   "repo-config": "no configuration at all"
+  },
+  "safety": 0.7142857142857143
+ },
+ "error-grep": {
+  "scores": {
+   "secret-in-env": 0.0,
+   "secret-in-diff": 0.0,
+   "secret-at-rest": 1.0,
+   "files-at-rest": 1.0,
+   "default-telemetry": 1.0,
+   "offline": 1.0,
+   "repo-config": 1.0
+  },
+  "notes": {
+   "secret-in-env": "4 of 4 credentials visible",
+   "secret-in-diff": "2 of 4 credentials visible",
+   "secret-at-rest": "stores nothing",
+   "files-at-rest": "stores nothing",
+   "default-telemetry": "no telemetry code",
+   "offline": "no network code",
+   "repo-config": "no configuration at all"
+  },
+  "safety": 0.7142857142857143
+ }
+}
