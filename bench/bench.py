@@ -62,7 +62,7 @@ def n_log(raw):   # first indented line after each "commit" header = the subject
         if l.startswith('commit '): want = True
         elif want and l.startswith('    ') and l.strip(): subj.append(norm(l)[:40]); want = False
     return subj[:12]
-def n_diff(raw): return [m.split(' b/')[-1] for m in re.findall(r'^diff --git a/(.*)$', raw, re.M)][:25]
+def n_diff(raw): return [os.path.basename(m.split(' b/')[-1]) for m in re.findall(r'^diff --git a/(.*)$', raw, re.M)][:25]   # basename: tools that regroup by directory keep names, not full paths
 def n_status(raw): return [re.sub(r'^\s*(modified:|new file:|deleted:|renamed:|\S+\s)\s*', '', l).strip() for l in raw.splitlines() if re.match(r'^\s*(modified:|new file:|deleted:|renamed:|\?\?|[AMD] )', l)][:15]
 def n_paths(raw): return [os.path.basename(norm(l).split(':')[0]) for l in raw.splitlines() if l.strip()][:15]
 def n_names(raw): return [norm(l).split()[-1] for l in raw.splitlines() if l.strip() and not l.startswith('total')][:15]
@@ -72,7 +72,7 @@ FIXTURE_NEEDLES = {
   'setup': ['deprecated left-pad', 'deprecated request', 'ERESOLVE could not resolve peer dependency react@17'],
 }
 
-def workloads(fx, repo, tree, hrepo=None, htree=None):
+def workloads(fx, repo, tree, hrepo=None, htree=None, h2repo=None, h2tree=None):
     W = []
     sub = lambda k: (lambda raw: FIXTURE_NEEDLES[k])
     W += [dict(id='fixture: npm test (900 pass, 2 fail)', cwd=fx, raw=['npm', 'test'], rtk=['test', 'npm', 'test'], needles=sub('test')),
@@ -100,6 +100,17 @@ def workloads(fx, repo, tree, hrepo=None, htree=None):
         W += [dict(id='holdout tree: ls -la', cwd=htree, raw=['ls', '-la'], rtk=['ls', '-la'], needles=lambda r: n_names(r)),
               dict(id='holdout tree: find -name "*.md"', cwd=htree, raw=['find', '.', '-maxdepth', '5', '-name', '*.md'], rtk=['find', '.', '-maxdepth', '5', '-name', '*.md'], needles=lambda r: n_paths(r)),
               dict(id='holdout tree: find -type d', cwd=htree, raw=['find', '.', '-maxdepth', '3', '-type', 'd'], rtk=['find', '.', '-maxdepth', '3', '-type', 'd'], needles=lambda r: n_paths(r))]
+    # HOLDOUT 2: a third batch of repos / trees / arguments, defined BEFORE the v0.3 git-diff change was written; only aggregates were looked at while building it.
+    if h2repo:
+        W += [dict(id='holdout2 repo: git log -n 40', cwd=h2repo, raw=['git', 'log', '-n', '40'], rtk=['git', 'log', '-n', '40'], needles=n_log),
+              dict(id='holdout2 repo: git diff HEAD~3', cwd=h2repo, raw=['git', 'diff', 'HEAD~3'], rtk=['git', 'diff', 'HEAD~3'], needles=n_diff),
+              dict(id='holdout2 repo: git diff HEAD~25', cwd=h2repo, raw=['git', 'diff', 'HEAD~25'], rtk=['git', 'diff', 'HEAD~25'], needles=n_diff),
+              dict(id='holdout2 repo: git show HEAD~2', cwd=h2repo, raw=['git', 'show', 'HEAD~2'], rtk=['git', 'show', 'HEAD~2'], needles=lambda r: n_log(r)[:1] + n_diff(r)),
+              dict(id='holdout2 repo: git status', cwd=h2repo, raw=['git', 'status'], rtk=['git', 'status'], needles=n_status),
+              dict(id='holdout2 repo: grep -rn "const"', cwd=h2repo, raw=['grep', '-rn', '--include=*.ts', 'const ', '.'], rtk=['grep', '-rn', '--include=*.ts', 'const ', '.'], needles=lambda r: n_paths(r))]
+    if h2tree:
+        W += [dict(id='holdout2 tree: ls -la', cwd=h2tree, raw=['ls', '-la'], rtk=['ls', '-la'], needles=lambda r: n_names(r)),
+              dict(id='holdout2 tree: find -name "*.json"', cwd=h2tree, raw=['find', '.', '-maxdepth', '3', '-name', '*.json'], rtk=['find', '.', '-maxdepth', '3', '-name', '*.json'], needles=lambda r: n_paths(r))]
     return W
 def n_diff_stat(raw): return [norm(l).split('|')[0].strip()[-40:] for l in raw.splitlines() if '|' in l][:15]
 
@@ -145,9 +156,9 @@ def evaluate(W, rtk_bin, reps=3):
     return res, rows
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--rtk'); ap.add_argument('--repo'); ap.add_argument('--tree'); ap.add_argument('--holdout-repo'); ap.add_argument('--holdout-tree'); ap.add_argument('--name', default='perf'); ap.add_argument('--out', default=os.path.join(ROOT, 'bench', 'results')); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument('--rtk'); ap.add_argument('--repo'); ap.add_argument('--tree'); ap.add_argument('--holdout-repo'); ap.add_argument('--holdout2-repo'); ap.add_argument('--holdout2-tree'); ap.add_argument('--holdout-tree'); ap.add_argument('--name', default='perf'); ap.add_argument('--out', default=os.path.join(ROOT, 'bench', 'results')); a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True); fx = tempfile.mkdtemp(prefix='bench-fx-'); make_fixture(fx)
-    W = workloads(fx, a.repo, a.tree, a.holdout_repo, a.holdout_tree); res, rows = evaluate(W, a.rtk)
+    W = workloads(fx, a.repo, a.tree, a.holdout_repo, a.holdout_tree, a.holdout2_repo, a.holdout2_tree); res, rows = evaluate(W, a.rtk)
     json.dump(dict(workloads=rows, results=res), open(os.path.join(a.out, a.name + '.json'), 'w'), indent=1)
     print(f"{'tool':12} {'savings':>9} {'recall':>8} {'overhead':>10}")
     for t, rs in res.items(): print(f"{t:12} {100*statistics.mean(r['savings'] for r in rs):8.1f}% {100*statistics.mean(r['recall'] for r in rs):7.1f}% {statistics.mean(r['overhead_ms'] for r in rs):8.0f}ms")

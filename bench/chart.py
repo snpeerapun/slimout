@@ -41,7 +41,7 @@ for t in rows:
 ax3.set_xlabel('tokens saved %  →  (higher = cheaper)'); ax3.set_ylabel('information kept %  →  (higher = safer for the agent)'); ax3.set_xlim(35, 95); ax3.set_ylim(40, 95); ax3.grid(alpha=0.25)
 ax3.set_title('Trade-off (bubble size = safety score)', loc='left', fontweight='bold')
 fig.text(0.01, -0.03, "Caveats: weights are a judgement call; 'info kept' counts error lines heavily (favours error-grep, which drops everything that is not an error line); slimout v0.2 was tuned on the 12 'dev' workloads after seeing v0.1 results (the 8 holdout workloads were not used for tuning); head+tail/tail/error-grep make no safety claim and score like raw output on safety tests.", fontsize=8.5, color='#B71C1C')
-fig.text(0.01, 0.005, "Measured on 20 identical commands (6 generated fixtures, 6 on real repo/trees used while building, 8 holdout on other repos/trees), cl100k token counts. slimout is by the author of this benchmark; code + workloads in bench/.", fontsize=8.5, color='#555')
+fig.text(0.01, 0.005, "Measured on 28 identical commands (6 generated fixtures + 6 real, used while building; 16 more on other repos/trees defined later), cl100k token counts. slimout is by the author of this benchmark; code + workloads in bench/.", fontsize=8.5, color='#555')
 fig.savefig(os.path.join(R, 'ranking.png'), dpi=140, bbox_inches='tight'); plt.close(fig)
 
 # per-workload heatmaps
@@ -58,17 +58,19 @@ fig.savefig(os.path.join(R, 'per_workload.png'), dpi=140, bbox_inches='tight'); 
 for i, t in enumerate(rank, 1): r = rows[t]; print(f"#{i} {LAB[t]:20} score {100*r['score']:5.1f} | saved {100*r['savings']:4.1f}% kept {100*r['recall']:4.1f}% safety {100*r['safety']:4.1f}% overhead {r['overhead']:.0f}ms")
 
 
-# ---- before / after for slimout (v0.1 -> v0.2) on the DEV and HOLDOUT workload groups ----
-p1 = os.path.join(R, 'perf_v0.1.json')
-if os.path.exists(p1):
-    old = json.load(open(p1))['results']['slimout']; new = perf['results']['slimout']; rtk = perf['results']['rtk']
-    def g(rs, hold, k): return 100 * statistics.mean(max(0, r[k]) for r in rs if r['wl'].startswith('holdout') == hold)
-    fig, axs = plt.subplots(1, 2, figsize=(12, 4.6))
+# ---- slimout across versions, by workload group (dev = used while building; holdout 1/2 = defined later, not used for tuning*) ----
+old1, old2 = os.path.join(R, 'perf_v0.1.json'), os.path.join(R, 'perf_v0.2.json')
+if os.path.exists(old1) and os.path.exists(old2):
+    vers = [('slimout v0.1', json.load(open(old1))['results']['slimout'], '#C8E6C9'), ('slimout v0.2', json.load(open(old2))['results']['slimout'], '#66BB6A'), ('slimout v0.3', perf['results']['slimout'], '#2E7D32'), ('RTK 0.50.0', perf['results']['rtk'], '#1565C0')]
+    groups = [('dev workloads (12)\nused while building', lambda w: not w.startswith('holdout')), ('holdout 1 (8)\nnot used for tuning', lambda w: w.startswith('holdout ')), ('holdout 2 (8)\n*see caveat', lambda w: w.startswith('holdout2'))]
+    def g(rs, sel, k): return 100 * statistics.mean(max(0, r[k]) for r in rs if sel(r['wl']))
+    fig, axs = plt.subplots(1, 2, figsize=(14, 4.8))
     for a, k, title in ((axs[0], 'savings', 'Tokens saved %'), (axs[1], 'recall', 'Information kept %')):
-        xs = np.arange(2); w = 0.26
-        for i, (lab, rs, c) in enumerate((('slimout v0.1', old, '#A5D6A7'), ('slimout v0.2', new, '#2E7D32'), ('RTK 0.50.0', rtk, '#1565C0'))):
-            vals = [g(rs, False, k), g(rs, True, k)]; a.bar(xs + (i - 1) * w, vals, w, label=lab, color=c)
-            for xi, v in zip(xs + (i - 1) * w, vals): a.text(xi, v + 1, f"{v:.0f}", ha='center', fontsize=9)
-        a.set_xticks(xs); a.set_xticklabels(['dev workloads (12)\n(used while building)', 'HOLDOUT workloads (8)\n(never used to tune)']); a.set_ylim(0, 105); a.set_title(title, loc='left', fontweight='bold'); a.legend(fontsize=9, frameon=False)
-    fig.suptitle('slimout v0.1 → v0.2: more savings; information kept drops on the holdout set', x=0.01, ha='left', fontweight='bold')
+        xs = np.arange(len(groups)); w = 0.2
+        for i, (lab, rs, c) in enumerate(vers):
+            vals = [g(rs, sel, k) for _, sel in groups]; a.bar(xs + (i - 1.5) * w, vals, w, label=lab, color=c)
+            for xi, v in zip(xs + (i - 1.5) * w, vals): a.text(xi, v + 1, f"{v:.0f}", ha='center', fontsize=8)
+        a.set_xticks(xs); a.set_xticklabels([n for n, _ in groups], fontsize=9); a.set_ylim(0, 108); a.set_title(title, loc='left', fontweight='bold'); a.legend(fontsize=8.5, frameon=False, ncol=2, loc='upper right')
+    fig.suptitle('slimout over versions vs RTK, by workload group', x=0.01, ha='left', fontweight='bold', y=1.02)
+    fig.text(0.01, -0.04, "*holdout 2 was used to find a measuring flaw (diff needles used full paths; now basenames, applied to all tools and re-run) and v0.3's git-diff change was written after seeing v0.2's holdout-2 aggregates.", fontsize=8, color='#B71C1C')
     fig.savefig(os.path.join(R, 'before_after.png'), dpi=140, bbox_inches='tight'); plt.close(fig)

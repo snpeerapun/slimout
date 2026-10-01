@@ -6,7 +6,7 @@ Zero dependencies · no network · no telemetry · no shell · never widens your
 ```
 $ ls -1 .            (467 lines)         →  163 lines + "[slimout: 304 lines omitted; full redacted output: slimout show c6aadf14d3]"
 ```
-Benchmark ([bench/](bench/README.md)): ~70 % fewer tokens at ~80 % of the "must-keep" lines across 20 commands; measured in a real Claude Code session: **73 % fewer bytes** on a large `ls`, the model saw exactly how much was omitted and could ask for it back.
+Benchmark ([bench/](bench/README.md)): ~65 % fewer tokens while keeping ~85 % of the "must-keep" lines across 28 commands; measured in a real Claude Code session: **73 % fewer bytes** on a large `ls`, the model saw exactly how much was omitted and could ask for it back.
 
 ## How it works
 A Claude Code `PreToolUse` hook rewrites an allowed, simple Bash command (e.g. `git diff`, `ls`, `npm test`, `pytest`) into
@@ -22,7 +22,7 @@ Small outputs are returned untouched.
 ## Install
 ```bash
 git clone https://github.com/snpeerapun/slimout && cd slimout
-node --test test/*.test.js     # 42 tests, takes ~2 s — read the code first, it is ~480 lines
+node --test test/*.test.js     # 43 tests, takes ~2 s — read the code first, it is ~480 lines
 node bin/slimout.js install --dry-run
 node bin/slimout.js install    # adds one hook to ~/.claude/settings.json (backup made)
 ```

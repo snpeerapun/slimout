@@ -11,8 +11,8 @@ test('git log: one line per commit, subjects kept, bodies dropped, older commits
 test('git diff: every file path survives, only the first changed lines per file, totals reported', () => {
   const file = (n) => [`diff --git a/src/f${n}.js b/src/f${n}.js`, 'index 111..222 100644', `--- a/src/f${n}.js`, `+++ b/src/f${n}.js`, '@@ -1,40 +1,40 @@', ...Array.from({ length: 40 }, (_, k) => `+added line ${k} in ${n}`)];
   const raw = Array.from({ length: 30 }, (_, n) => file(n)).flat(); const out = gitDiff(raw);
-  for (let n = 0; n < 30; n++) assert.ok(out.includes(`diff src/f${n}.js`));
-  assert.ok(out.length < raw.length / 2); assert.ok(out.join('\n').includes('more changed lines in this file')); assert.ok(out.at(-1).includes('30 files, +1200 −0'));
+  for (let n = 0; n < 30; n++) assert.ok(out.some(l => l.startsWith(`diff src/f${n}.js (+40 −0)`)), `file ${n}`);
+  assert.ok(out.length <= 120 && out.length < raw.length / 5); assert.ok(out.at(-1).includes('30 files, +1200 −0'));
 });
 test('git status: hint prose dropped, every path kept', () => {
   const raw = ['On branch main', 'Your branch is up to date with \'origin/main\'.', '', 'Changes not staged for commit:', '  (use "git add <file>..." to update what will be committed)', '\tmodified:   a.js', '\tmodified:   b.js', '', 'Untracked files:', '  (use "git add <file>..." to include in what will be committed)', '\tnew.txt', ''];
@@ -35,4 +35,10 @@ test('end to end through slim(): large git log shrinks a lot and keeps newest su
   const raw = Array.from({ length: 200 }, (_, i) => commit(i)).join('\n'); const r = slim(['git', 'log'], raw);
   assert.ok(r.text.length < raw.length / 4 && r.text.includes('feat: change number 0') && r.text.includes('feat: change number 11'));
   const small = 'On branch main\nnothing to commit, working tree clean\n'; assert.strictEqual(slim(['git', 'status'], small).text, small);
+});
+
+test('git diff with hundreds of files: every file still appears (grouped by directory) and the budget holds', () => {
+  const file = n => [`diff --git a/pkg${n % 25}/sub/f${n}.js b/pkg${n % 25}/sub/f${n}.js`, 'index 1..2 100644', '--- a/x', '+++ b/x', '@@ -1 +1 @@', '-old', '+new'];
+  const raw = Array.from({ length: 300 }, (_, n) => file(n)).flat(); const out = gitDiff(raw, 120); assert.ok(out.length <= 120);
+  const text = out.join('\n'); for (const n of [0, 77, 150, 299]) assert.ok(text.includes(`f${n}.js`), 'f' + n);
 });

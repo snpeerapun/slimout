@@ -149,71 +149,71 @@
     "tool_tokens": 159,
     "savings": 0.9865618661257607,
     "recall": 1.0,
-    "overhead_ms": 0.0
+    "overhead_ms": 104.45912499562837
    },
    {
     "wl": "fixture: build (700 lines, 3 errors)",
     "raw_tokens": 9974,
-    "tool_tokens": 739,
-    "savings": 0.9259073591337478,
+    "tool_tokens": 738,
+    "savings": 0.9260076198115099,
     "recall": 1.0,
-    "overhead_ms": 174.33370801154524
+    "overhead_ms": 120.06891699275002
    },
    {
     "wl": "fixture: npm install noise + ERESOLVE",
     "raw_tokens": 27883,
-    "tool_tokens": 1813,
-    "savings": 0.9349783021912994,
+    "tool_tokens": 1812,
+    "savings": 0.935014166337912,
     "recall": 1.0,
-    "overhead_ms": 126.74175000574905
+    "overhead_ms": 110.28408400306944
    },
    {
     "wl": "fixture: ls -la (400 files)",
     "raw_tokens": 12456,
-    "tool_tokens": 2975,
-    "savings": 0.7611592806679512,
+    "tool_tokens": 818,
+    "savings": 0.9343288375080283,
     "recall": 1.0,
-    "overhead_ms": 109.37691699655261
+    "overhead_ms": 109.40279200440273
    },
    {
     "wl": "fixture: find . -name \"*.js\"",
     "raw_tokens": 2818,
-    "tool_tokens": 703,
-    "savings": 0.7505322924059616,
+    "tool_tokens": 129,
+    "savings": 0.9542228530872959,
     "recall": 1.0,
-    "overhead_ms": 104.36429199762642
+    "overhead_ms": 104.29987500538118
    },
    {
     "wl": "fixture: grep -rn \"function\" (3200 hits)",
     "raw_tokens": 64000,
-    "tool_tokens": 1955,
-    "savings": 0.969453125,
+    "tool_tokens": 1352,
+    "savings": 0.978875,
     "recall": 1.0,
-    "overhead_ms": 114.59170801390428
+    "overhead_ms": 115.70300100720488
    },
    {
     "wl": "real repo: git log -n 300",
     "raw_tokens": 119082,
-    "tool_tokens": 10534,
-    "savings": 0.9115399472632304,
-    "recall": 0.25,
-    "overhead_ms": 155.95537499757484
+    "tool_tokens": 8886,
+    "savings": 0.9253791505013352,
+    "recall": 0.5,
+    "overhead_ms": 115.91420799959451
    },
    {
     "wl": "real repo: git diff HEAD~15",
     "raw_tokens": 133655,
-    "tool_tokens": 6455,
-    "savings": 0.9517040140660656,
-    "recall": 0.027777777777777776,
-    "overhead_ms": 164.92458299035206
+    "tool_tokens": 2907,
+    "savings": 0.9782499719426883,
+    "recall": 0.16666666666666666,
+    "overhead_ms": 125.35716699494515
    },
    {
     "wl": "real repo: git status",
     "raw_tokens": 835,
-    "tool_tokens": 835,
-    "savings": 0.0,
+    "tool_tokens": 775,
+    "savings": 0.07185628742514971,
     "recall": 1.0,
-    "overhead_ms": 123.85187500331085
+    "overhead_ms": 107.92962499544956
    },
    {
     "wl": "real repo: git show --stat HEAD~3",
@@ -221,39 +221,39 @@
     "tool_tokens": 196,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 104.26487600489054
+    "overhead_ms": 108.61679099616595
    },
    {
     "wl": "real tree: ls -laR (2 levels)",
     "raw_tokens": 2352,
-    "tool_tokens": 2352,
-    "savings": 0.0,
-    "recall": 1.0,
-    "overhead_ms": 105.59408299741335
+    "tool_tokens": 612,
+    "savings": 0.7397959183673469,
+    "recall": 0.8823529411764706,
+    "overhead_ms": 107.38895800022874
    },
    {
     "wl": "real tree: find . -name \"*.json\"",
     "raw_tokens": 867,
-    "tool_tokens": 867,
-    "savings": 0.0,
-    "recall": 1.0,
-    "overhead_ms": 96.05237499636132
+    "tool_tokens": 758,
+    "savings": 0.12572087658592845,
+    "recall": 0.5714285714285714,
+    "overhead_ms": 106.86274999170564
    },
    {
     "wl": "holdout repo: git log -n 80",
     "raw_tokens": 7302,
-    "tool_tokens": 1473,
-    "savings": 0.7982744453574363,
-    "recall": 0.75,
-    "overhead_ms": 109.54187500465196
+    "tool_tokens": 3119,
+    "savings": 0.572856751574911,
+    "recall": 0.8125,
+    "overhead_ms": 111.64529201050755
    },
    {
     "wl": "holdout repo: git diff HEAD~5",
     "raw_tokens": 9995,
-    "tool_tokens": 3431,
-    "savings": 0.656728364182091,
-    "recall": 0.625,
-    "overhead_ms": 109.59066699433606
+    "tool_tokens": 1377,
+    "savings": 0.8622311155577789,
+    "recall": 0.20833333333333334,
+    "overhead_ms": 109.64929098554421
    },
    {
     "wl": "holdout repo: git status",
@@ -261,79 +261,79 @@
     "tool_tokens": 60,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 102.51425000024028
+    "overhead_ms": 130.20258299366105
    },
    {
     "wl": "holdout repo: git show HEAD~1",
     "raw_tokens": 1717,
-    "tool_tokens": 1716,
-    "savings": 0.0005824111822947398,
+    "tool_tokens": 500,
+    "savings": 0.70879440885265,
     "recall": 1.0,
-    "overhead_ms": 104.38541599432938
+    "overhead_ms": 87.29587600100785
    },
    {
     "wl": "holdout repo: grep -rn \"TODO\\|import\"",
     "raw_tokens": 225134,
-    "tool_tokens": 23103,
-    "savings": 0.8973811152469197,
-    "recall": 0.46153846153846156,
-    "overhead_ms": 126.00837499485351
+    "tool_tokens": 1897,
+    "savings": 0.9915739070953299,
+    "recall": 0.8461538461538461,
+    "overhead_ms": 120.61500000709202
    },
    {
     "wl": "holdout tree: ls -la",
     "raw_tokens": 5122,
-    "tool_tokens": 2835,
-    "savings": 0.4465052713783678,
-    "recall": 1.0,
-    "overhead_ms": 103.47141699458007
+    "tool_tokens": 774,
+    "savings": 0.8488871534556814,
+    "recall": 0.8333333333333334,
+    "overhead_ms": 109.65458300779574
    },
    {
     "wl": "holdout tree: find -name \"*.md\"",
     "raw_tokens": 2414,
-    "tool_tokens": 864,
-    "savings": 0.6420878210439105,
-    "recall": 1.0,
-    "overhead_ms": 107.78108300291933
+    "tool_tokens": 765,
+    "savings": 0.6830985915492958,
+    "recall": 0.5,
+    "overhead_ms": 115.09345800732262
    },
    {
     "wl": "holdout tree: find -type d",
     "raw_tokens": 4124,
-    "tool_tokens": 614,
-    "savings": 0.8511154219204655,
-    "recall": 1.0,
-    "overhead_ms": 106.00654200243298
+    "tool_tokens": 783,
+    "savings": 0.8101357904946653,
+    "recall": 0.75,
+    "overhead_ms": 108.31375099951401
    },
    {
     "wl": "holdout2 repo: git log -n 40",
     "raw_tokens": 3552,
-    "tool_tokens": 1331,
-    "savings": 0.6252815315315315,
-    "recall": 0.5833333333333334,
-    "overhead_ms": 104.72324998409022
+    "tool_tokens": 1614,
+    "savings": 0.5456081081081081,
+    "recall": 1.0,
+    "overhead_ms": 108.1994589912938
    },
    {
     "wl": "holdout2 repo: git diff HEAD~3",
     "raw_tokens": 470039,
-    "tool_tokens": 22062,
-    "savings": 0.9530634692014918,
-    "recall": 0.3142857142857143,
-    "overhead_ms": 169.74299999128561
+    "tool_tokens": 1547,
+    "savings": 0.9967087837392217,
+    "recall": 0.37142857142857144,
+    "overhead_ms": 168.7006249994738
    },
    {
     "wl": "holdout2 repo: git diff HEAD~25",
     "raw_tokens": 1134734,
-    "tool_tokens": 8359,
-    "savings": 0.9926335158724423,
-    "recall": 0.08333333333333333,
-    "overhead_ms": 252.35520899877883
+    "tool_tokens": 2565,
+    "savings": 0.9977395583458326,
+    "recall": 0.1388888888888889,
+    "overhead_ms": 254.02058300096542
    },
    {
     "wl": "holdout2 repo: git show HEAD~2",
     "raw_tokens": 450267,
-    "tool_tokens": 22090,
-    "savings": 0.9509402199139622,
-    "recall": 0.5555555555555556,
-    "overhead_ms": 165.73733401310164
+    "tool_tokens": 1366,
+    "savings": 0.996966244472724,
+    "recall": 0.4074074074074074,
+    "overhead_ms": 176.93337400851306
    },
    {
     "wl": "holdout2 repo: git status",
@@ -341,15 +341,15 @@
     "tool_tokens": 23,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 103.04662499402184
+    "overhead_ms": 103.9431249955669
    },
    {
     "wl": "holdout2 repo: grep -rn \"const\"",
     "raw_tokens": 2173,
-    "tool_tokens": 2173,
-    "savings": 0.0,
+    "tool_tokens": 823,
+    "savings": 0.621260929590428,
     "recall": 1.0,
-    "overhead_ms": 102.93420798552688
+    "overhead_ms": 109.97941700043157
    },
    {
     "wl": "holdout2 tree: ls -la",
@@ -357,7 +357,7 @@
     "tool_tokens": 599,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 105.74400000041351
+    "overhead_ms": 105.36295900237747
    },
    {
     "wl": "holdout2 tree: find -name \"*.json\"",
@@ -365,7 +365,7 @@
     "tool_tokens": 217,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 107.3404170019785
+    "overhead_ms": 103.82733299047686
    }
   ],
   "rtk": [
@@ -375,7 +375,7 @@
     "tool_tokens": 59,
     "savings": 0.9950135226504395,
     "recall": 0.6,
-    "overhead_ms": 0.0
+    "overhead_ms": 14.40195798932109
    },
    {
     "wl": "fixture: build (700 lines, 3 errors)",
@@ -383,7 +383,7 @@
     "tool_tokens": 163,
     "savings": 0.9836575095247644,
     "recall": 0.8823529411764706,
-    "overhead_ms": 105.05020900745876
+    "overhead_ms": 22.268166998401284
    },
    {
     "wl": "fixture: npm install noise + ERESOLVE",
@@ -391,7 +391,7 @@
     "tool_tokens": 83,
     "savings": 0.9970232758311516,
     "recall": 1.0,
-    "overhead_ms": 0.0
+    "overhead_ms": 39.208875998156145
    },
    {
     "wl": "fixture: ls -la (400 files)",
@@ -399,7 +399,7 @@
     "tool_tokens": 573,
     "savings": 0.9539980732177264,
     "recall": 1.0,
-    "overhead_ms": 9.288208995712921
+    "overhead_ms": 15.56241701473482
    },
    {
     "wl": "fixture: find . -name \"*.js\"",
@@ -407,7 +407,7 @@
     "tool_tokens": 229,
     "savings": 0.9187366926898509,
     "recall": 0.3333333333333333,
-    "overhead_ms": 11.6503329918487
+    "overhead_ms": 12.5365420099115
    },
    {
     "wl": "fixture: grep -rn \"function\" (3200 hits)",
@@ -415,7 +415,7 @@
     "tool_tokens": 4028,
     "savings": 0.9370625,
     "recall": 0.0,
-    "overhead_ms": 76.24133299395908
+    "overhead_ms": 22.540543010109104
    },
    {
     "wl": "real repo: git log -n 300",
@@ -423,7 +423,7 @@
     "tool_tokens": 51109,
     "savings": 0.5708083505483617,
     "recall": 0.875,
-    "overhead_ms": 16.104041002108715
+    "overhead_ms": 18.634749998454936
    },
    {
     "wl": "real repo: git diff HEAD~15",
@@ -431,7 +431,7 @@
     "tool_tokens": 16020,
     "savings": 0.8801391642662078,
     "recall": 0.8333333333333334,
-    "overhead_ms": 41.65850000572391
+    "overhead_ms": 57.8882080008043
    },
    {
     "wl": "real repo: git status",
@@ -439,7 +439,7 @@
     "tool_tokens": 646,
     "savings": 0.22634730538922154,
     "recall": 1.0,
-    "overhead_ms": 43.79462501674425
+    "overhead_ms": 51.43383299582638
    },
    {
     "wl": "real repo: git show --stat HEAD~3",
@@ -447,7 +447,7 @@
     "tool_tokens": 196,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 12.952916993526742
+    "overhead_ms": 12.667582996073179
    },
    {
     "wl": "real tree: ls -laR (2 levels)",
@@ -455,7 +455,7 @@
     "tool_tokens": 285,
     "savings": 0.8788265306122449,
     "recall": 0.8235294117647058,
-    "overhead_ms": 17.136124995886348
+    "overhead_ms": 15.077208008733578
    },
    {
     "wl": "real tree: find . -name \"*.json\"",
@@ -463,7 +463,7 @@
     "tool_tokens": 339,
     "savings": 0.6089965397923875,
     "recall": 0.2857142857142857,
-    "overhead_ms": 1.6411260003224015
+    "overhead_ms": 8.40091700956691
    },
    {
     "wl": "holdout repo: git log -n 80",
@@ -471,7 +471,7 @@
     "tool_tokens": 2832,
     "savings": 0.6121610517666393,
     "recall": 0.875,
-    "overhead_ms": 15.736999994260259
+    "overhead_ms": 16.21345900639426
    },
    {
     "wl": "holdout repo: git diff HEAD~5",
@@ -479,7 +479,7 @@
     "tool_tokens": 7802,
     "savings": 0.21940970485242617,
     "recall": 1.0,
-    "overhead_ms": 34.83916698314715
+    "overhead_ms": 36.58741599065252
    },
    {
     "wl": "holdout repo: git status",
@@ -487,7 +487,7 @@
     "tool_tokens": 11,
     "savings": 0.8166666666666667,
     "recall": 1.0,
-    "overhead_ms": 31.061958987265825
+    "overhead_ms": 34.86687499389518
    },
    {
     "wl": "holdout repo: git show HEAD~1",
@@ -495,7 +495,7 @@
     "tool_tokens": 1659,
     "savings": 0.033779848573092575,
     "recall": 1.0,
-    "overhead_ms": 78.67616599833127
+    "overhead_ms": 37.58312501304317
    },
    {
     "wl": "holdout repo: grep -rn \"TODO\\|import\"",
@@ -503,7 +503,7 @@
     "tool_tokens": 225134,
     "savings": 0.0,
     "recall": 1.0,
-    "overhead_ms": 22.514207987114787
+    "overhead_ms": 24.629126011859626
    },
    {
     "wl": "holdout tree: ls -la",
@@ -511,7 +511,7 @@
     "tool_tokens": 297,
     "savings": 0.9420148379539243,
     "recall": 0.7777777777777778,
-    "overhead_ms": 16.862999997101724
+    "overhead_ms": 15.465624994249083
    },
    {
     "wl": "holdout tree: find -name \"*.md\"",
@@ -519,7 +519,7 @@
     "tool_tokens": 361,
     "savings": 0.8504556752278376,
     "recall": 0.5,
-    "overhead_ms": 0.35083299735561013
+    "overhead_ms": 2.281583016156219
    },
    {
     "wl": "holdout tree: find -type d",
@@ -527,7 +527,7 @@
     "tool_tokens": 222,
     "savings": 0.946168768186227,
     "recall": 0.2,
-    "overhead_ms": 9.36987399472855
+    "overhead_ms": 9.345334008685313
    },
    {
     "wl": "holdout2 repo: git log -n 40",
@@ -535,7 +535,7 @@
     "tool_tokens": 1416,
     "savings": 0.6013513513513513,
     "recall": 1.0,
-    "overhead_ms": 12.470499990740791
+    "overhead_ms": 13.470083984429948
    },
    {
     "wl": "holdout2 repo: git diff HEAD~3",
@@ -543,7 +543,7 @@
     "tool_tokens": 7786,
     "savings": 0.9834354170611375,
     "recall": 0.6857142857142857,
-    "overhead_ms": 41.62083398841787
+    "overhead_ms": 43.53862500283867
    },
    {
     "wl": "holdout2 repo: git diff HEAD~25",
@@ -551,7 +551,7 @@
     "tool_tokens": 19116,
     "savings": 0.9831537611457839,
     "recall": 0.6944444444444444,
-    "overhead_ms": 61.798000999260694
+    "overhead_ms": 64.29429099080153
    },
    {
     "wl": "holdout2 repo: git show HEAD~2",
@@ -559,7 +559,7 @@
     "tool_tokens": 431755,
     "savings": 0.04111338383670138,
     "recall": 0.8888888888888888,
-    "overhead_ms": 110.00312499527354
+    "overhead_ms": 116.46916600875556
    },
    {
     "wl": "holdout2 repo: git status",
@@ -567,7 +567,7 @@
     "tool_tokens": 12,
     "savings": 0.4782608695652174,
     "recall": 1.0,
-    "overhead_ms": 34.417540999129415
+    "overhead_ms": 37.95466700103134
    },
    {
     "wl": "holdout2 repo: grep -rn \"const\"",
@@ -575,7 +575,7 @@
     "tool_tokens": 2087,
     "savings": 0.03957662218131619,
     "recall": 1.0,
-    "overhead_ms": 14.891749990056269
+    "overhead_ms": 20.717666993732564
    },
    {
     "wl": "holdout2 tree: ls -la",
@@ -583,7 +583,7 @@
     "tool_tokens": 115,
     "savings": 0.8080133555926544,
     "recall": 0.9333333333333333,
-    "overhead_ms": 14.10212498740293
+    "overhead_ms": 14.354708007886074
    },
    {
     "wl": "holdout2 tree: find -name \"*.json\"",
@@ -591,7 +591,7 @@
     "tool_tokens": 189,
     "savings": 0.12903225806451613,
     "recall": 1.0,
-    "overhead_ms": 9.651582993683405
+    "overhead_ms": 11.528541988809593
    }
   ],
   "head+tail": [
